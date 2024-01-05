@@ -1,0 +1,13 @@
+{
+    "ID":"02CF520CA13E486F9A8ADCA0E5C1A0C2",
+    "ActionKeyword":"*",
+    "Name":"生益BPM系统查询",
+    "Description":"查询生益BPM系统上相关信息，输入query可以显示所有可以使用的查询模块。",
+    "Author":"helscn",
+    "Version":"1.1",
+    "Language":"python",
+    "Website":"https://github.com/helscn",
+    "IcoPath":"Images\\SYE.ico",
+    "ExecuteFileName":"sye_bpm.py",
+    "Disabled": false
+}
