@@ -542,10 +542,21 @@ def query_zkud(param):
     if res is None:
         return LOGIN_ERROR
     try:
-        uds = res.json()
+        uds1 = res.json()
     except Exception as e:
         return QUERY_ERROR
-    for ud in uds['rows']:
+    
+    url = 'http://eip.sye.com.cn:8181/bpm/r?wf_num=R_QA001_B006&wf_gridnum=V_QA001_G005&wf_action=edit&wf_docunid=0da124f60c3a10422b09e130c285dd17b91b&rdm=' + \
+        str(random())+'&Status=ok&div=钻孔&page=1&rows=25&udxh='+param
+    res = get_url(url)
+    if res is None:
+        return LOGIN_ERROR
+    try:
+        uds2 = res.json()
+    except Exception as e:
+        return QUERY_ERROR
+
+    for ud in (uds1['rows']+uds2['rows']):
         try:
             if ud['WF_CurrentNodeName']=='已结束':
                 result.append({
@@ -582,7 +593,7 @@ def query_zkud(param):
                 })  
         except Exception as e:
             return [{
-                    'Title': '出现错误',
+                    'Title': '出现错误：'+e.args[0],
                     'IcoPath': 'Images\\SYE.ico'
                     }]
     if not result:
@@ -1417,4 +1428,4 @@ def query_npi(param):
 
 
 if __name__ == '__main__':
-    print(query_xbbud('88660'))
+    print(query_zkud('92440'))
