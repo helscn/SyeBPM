@@ -601,8 +601,7 @@ def query_zkud(param):
         result[0]['SubTitle'] = '未找到 {} 的钻孔工具U单。'.format(param)
         return result
     else:
-        result.sort(key=lambda v: v['SubTitle'], reverse=True)
-        return result
+        return unique(result)
 
 def query_xbbud(param):
     # 在生益ERP系统中根据料号名查询铣板边U单
@@ -1425,6 +1424,23 @@ def query_npi(param):
     for v in query_pcd(param):
         result.append(v.copy())
     return result
+
+
+def has_item(item,result):
+    # 判断查询结果是否已经存在列表中，通过 Title 进行判断
+    for i in result:
+        if item['Title']==i['Title']:
+            return True
+    return False
+
+def unique(result):
+    # 将查询结果去重，并返回去重的新结果，通过 SubTitle 降序判断
+    new_result=[]
+    for item in result:
+        if not has_item(item,new_result):
+            new_result.append(item)
+    new_result.sort(key=lambda v:v['SubTitle'],reverse=True)
+    return new_result
 
 
 if __name__ == '__main__':
